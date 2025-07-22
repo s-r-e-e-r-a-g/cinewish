@@ -32,16 +32,13 @@ app.use("/api/user", userRoutes);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.get('/{*any}', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
-
-
 app.get("/ping", (req, res) => {
     res.json({ message: "Server Ping"})
 })
 
+app.get('/{*any}', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 app.listen(PORT, ()=>{
     console.log(`Server running: http://localhost:${PORT}`)
