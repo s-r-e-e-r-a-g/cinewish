@@ -6,7 +6,7 @@ import authRoutes from './routes/authRoutes.js'
 import tmdbRoutes from './routes/tmdbRoutes.js'
 import wishListRoutes from './routes/wishlistRoutes.js'
 import userRoutes from './routes/userRoutes.js'
-import './utilities/fetchFrequently.js';
+// import './utilities/fetchFrequently.js';
 import './utilities/sleepPreventer.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
