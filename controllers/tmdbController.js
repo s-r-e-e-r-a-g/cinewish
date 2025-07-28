@@ -1,6 +1,7 @@
 import axios from "axios";
 import Trending from "../models/trendingModel.js";
 import Upcoming from "../models/upcomingModel.js";
+import WatchList from '../models/watchListModel.js'
 
 
 const TMDB_ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN; 
