@@ -129,9 +129,8 @@ export const getDetails = async (req, res) => {
 export const getRecommendations = async (req, res) => {
   try {
     const { media, id } = req.params;
-    const userId  = req.user._id;
+    const userId = req.user._id;
 
-    // 1. Fetch genre information of the current media
     const { data: mediaDetails } = await axios.get(
       `${BASE_URL}/${media}/${id}`,
       {
@@ -147,8 +146,8 @@ export const getRecommendations = async (req, res) => {
       return res.status(404).json({ message: "No genres found" });
     }
 
-    // 2. Discover similar media by genre
-    const genreQuery = genreIds.slice(0, 3).join(","); // Limit to top 3 genres
+    const genreQuery = genreIds.slice(0, 3).join(",");
+
     const { data: discoveryData } = await axios.get(
       `${BASE_URL}/discover/${media}`,
       {
@@ -164,13 +163,15 @@ export const getRecommendations = async (req, res) => {
       }
     );
 
-    let recommended = discoveryData.results;
+    let recommended = discoveryData.results.map((item) => ({
+      ...item,
+      media_type: media, // <-- Inject media_type
+    }));
 
-    // 3. Exclude already watched or wishlisted content
     if (userId) {
       const userWatchList = await WatchList.find({ userId });
       const excludedIds = new Set(userWatchList.map((item) => item.tmdbId));
-      excludedIds.add(parseInt(id)); // Also exclude current item
+      excludedIds.add(parseInt(id)); 
 
       recommended = recommended.filter((item) => !excludedIds.has(item.id));
     }
@@ -181,4 +182,3 @@ export const getRecommendations = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch custom recommendations" });
   }
 };
-
