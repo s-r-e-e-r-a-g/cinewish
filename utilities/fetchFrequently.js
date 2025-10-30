@@ -5,7 +5,7 @@ import {
   updateUpcoming,
 } from "../controllers/tmdbController.js";
 
-cron.schedule("1 0 * * *", async () => {
+cron.schedule("0 0 * * *", async () => {
   console.log(`⏰ [${new Date().toISOString()}] Running content cache...`);
 
   try {
@@ -29,4 +29,5 @@ cron.schedule("1 0 * * *", async () => {
     console.error("❌ Failed to update latest OTT:", err.code || err.message);
   }
 });
+
 updateLatestOTT()
