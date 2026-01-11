@@ -8,6 +8,7 @@ import wishListRoutes from './routes/wishlistRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import './utilities/fetchFrequently.js';
 import './utilities/sleepPreventer.js'
+import watchRoutes from './routes/watchRoutes.js'
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -27,6 +28,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/tmdb", tmdbRoutes);
 app.use("/api/wishlist", wishListRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/watch", watchRoutes);
 
 
 app.use(express.static(path.join(__dirname, 'dist')));
